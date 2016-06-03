@@ -8,34 +8,39 @@ const submit = (values, dispatch) => {
 }
 
 let AddEvent = (props) => {
-  const {fields: {year, name, text, imageUrl}, handleSubmit} = props
+  const {fields: {eventYear, eventName, eventText, eventImageUrl}, handleSubmit} = props
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <div>
-        <label>Year</label>
-        <input type='text' placeholder='year...' {...year} />
-      </div>
-      <div>
-        <label>Event name</label>
-        <input type='text' placeholder='event name...' {...name} />
-      </div>
-      <div>
-        <label>Description</label>
-        <input type='text' placeholder='description...' {...text} />
-      </div>
-      <div>
-        <label>Image URL</label>
-        <input type='text' placeholder='image-url...' {...imageUrl} />
-      </div>
-      <button type='submit'>Submit</button>
+    <form onSubmit={handleSubmit(submit)} className='pure-form pure-form-aligned'>
+      <fieldset>
+        <div className='pure-control-group'>
+          <label>Event Year</label>
+          <input type='text' placeholder='event year...' {...eventYear} />
+        </div>
+        <div className='pure-control-group'>
+          <label>Event Name</label>
+          <input type='text' placeholder='event name...' {...eventName} />
+        </div>
+        <div className='pure-control-group'>
+          <label>Description</label>
+          <input type='text' placeholder='description...' {...eventText} />
+        </div>
+        <div className='pure-control-group'>
+          <label>Image URL</label>
+          <input type='text' placeholder='image-url...' {...eventImageUrl} />
+        </div>
+        <div className='pure-control-group'>
+          <label></label>
+          <button type='submit' className='pure-button pure-button-primary'>Submit</button>
+        </div>
+      </fieldset>
     </form>
   )
 }
 
 AddEvent = reduxForm({
   form: 'addEvent',
-  fields: ['year', 'name', 'text', 'imageUrl']
+  fields: ['eventYear', 'eventName', 'eventText', 'eventImageUrl']
 })(AddEvent)
 
 export default AddEvent
