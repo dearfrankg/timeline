@@ -5,9 +5,9 @@ const event = (state, action) => {
     case types.ADD_EVENT:
       return {
         id: action.id,
-        year: (action.year && action.year.length) ? action.year : ('19' + Math.floor(Math.random() * 90 + 10)),
-        name: (action.name && action.name.length) ? action.name : 'Some Special Event',
-        text: (action.text && action.text.length) ? action.text : 'Lorem ipsum dolor sit amet, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        eventYear: (action.eventYear && action.eventYear.length) ? action.eventYear : ('19' + Math.floor(Math.random() * 90 + 10)),
+        eventName: (action.eventName && action.eventName.length) ? action.eventName : 'Some Special Event',
+        eventText: (action.eventText && action.eventText.length) ? action.eventText : 'Lorem ipsum dolor sit amet, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         liked: false
       }
     case types.TOGGLE_LIKED:
