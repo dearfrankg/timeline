@@ -6,7 +6,7 @@ const Event = ({ liked, eventName, eventYear, onHeartClick, onEventClick, active
     {eventYear + ' '}
     {eventName + ' '}
     <i className='ion-heart'
-      style={{ color: liked ? 'crimson' : 'grey' }}
+      style={{ color: liked ? '#d77' : '#666' }}
       onClick={onHeartClick} ></i>
   </li>
 )
