@@ -6,6 +6,11 @@
   font-family: 'Ionicons';
   content: '\f21b ';
   color: white;
+  z-index: 100;
+}
+
+.event-list li.active::before {
+  color: black;
 }
 
 .event-list li {
@@ -39,4 +44,5 @@
   left: 45px;
   border-left: 2px solid white;
   height: 100%;
+  z-index: -100;
 }

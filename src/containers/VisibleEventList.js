@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleLiked } from '../actions'
+import { toggleLiked, selectEvent } from '../actions'
 import EventList from '../components/EventList'
 
 const getVisibleEvents = (todos, filter) => {
@@ -21,8 +21,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onEventClick: (id) => {
+    onHeartClick: (id) => {
       dispatch(toggleLiked(id))
+    },
+    onEventClick: (id) => {
+      dispatch(selectEvent(id))
     }
   }
 }

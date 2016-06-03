@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Event from './Event'
 
-const EventList = ({ events, onEventClick }) => (
+const EventList = ({ events, onEventClick, onHeartClick }) => (
   <div className='list-container'>
     <div className='line-top'></div>
     <div className='line-bottom'></div>
@@ -11,7 +11,8 @@ const EventList = ({ events, onEventClick }) => (
         <Event
           key={event.id}
           {...event}
-          onClick={() => onEventClick(event.id)}
+          onHeartClick={() => onHeartClick(event.id)}
+          onEventClick={() => onEventClick(event.id)}
         />
       )}
     </ul>
@@ -22,8 +23,10 @@ EventList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     liked: PropTypes.bool.isRequired,
+    active: PropTypes.bool.isRequired,
     eventName: PropTypes.string.isRequired
   }).isRequired).isRequired,
+  onHeartClick: PropTypes.func.isRequired,
   onEventClick: PropTypes.func.isRequired
 }
 

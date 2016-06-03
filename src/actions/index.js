@@ -23,3 +23,10 @@ export const toggleLiked = (id) => {
     id
   }
 }
+
+export const selectEvent = (id) => {
+  return {
+    type: types.SELECT_EVENT,
+    id
+  }
+}

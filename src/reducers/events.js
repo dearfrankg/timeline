@@ -5,10 +5,11 @@ const event = (state, action) => {
     case types.ADD_EVENT:
       return {
         id: action.id,
-        eventYear: (action.eventYear && action.eventYear.length) ? action.eventYear : ('19' + Math.floor(Math.random() * 90 + 10)),
-        eventName: (action.eventName && action.eventName.length) ? action.eventName : 'Some Special Event',
-        eventText: (action.eventText && action.eventText.length) ? action.eventText : 'Lorem ipsum dolor sit amet, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        liked: false
+        eventYear: action.eventYear,
+        eventName: action.eventName,
+        eventText: action.eventText,
+        liked: false,
+        active: false
       }
     case types.TOGGLE_LIKED:
       if (state.id !== action.id) {
@@ -18,6 +19,17 @@ const event = (state, action) => {
       return Object.assign({}, state, {
         liked: !state.liked
       })
+
+    case types.SELECT_EVENT:
+      if (state.id !== action.id) {
+        return Object.assign({}, state, {
+          active: false
+        })
+      } else {
+        return Object.assign({}, state, {
+          active: true
+        })
+      }
 
     default:
       return state
@@ -33,6 +45,11 @@ const events = (state = [], action) => {
       ]
 
     case types.TOGGLE_LIKED:
+      return state.map(e =>
+        event(e, action)
+      )
+
+    case types.SELECT_EVENT:
       return state.map(e =>
         event(e, action)
       )
