@@ -13,7 +13,6 @@ export default class EventList extends Component {
   }
 
   handleKeyDown = (e) => {
-    e.preventDefault()
     const {onUpKey, onDownKey} = this.props
     const keyCode = e.keyCode || e.which
     const fnMap = {
@@ -21,6 +20,7 @@ export default class EventList extends Component {
       [keys.DOWN]: onDownKey
     }
     if (keyCode in fnMap) {
+      e.preventDefault()
       fnMap[keyCode]()
     }
   }
@@ -49,7 +49,7 @@ export default class EventList extends Component {
 
 EventList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     liked: PropTypes.bool.isRequired,
     active: PropTypes.bool.isRequired,
     eventName: PropTypes.string.isRequired

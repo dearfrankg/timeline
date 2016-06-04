@@ -1,11 +1,10 @@
 import * as types from 'constants/actionTypes'
-
-let nextId = 0
+import { getId } from 'utils'
 
 export const addEvent = (fields) => {
   return {
     type: types.ADD_EVENT,
-    id: nextId++,
+    id: getId(),
     ...fields
   }
 }

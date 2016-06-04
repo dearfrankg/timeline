@@ -33,10 +33,10 @@ var config = getConfig({
           'name': 'react starter seed',
           'description': 'webpack, react, babel, standard'
         },
-        head: [
-          '<link rel="stylesheet" href="ionicons.min.css">',
-          '<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">'
-        ]
+        head: `
+          <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+          <link rel="stylesheet" href="ionicons.min.css">
+        `
       })
     }
   }
