@@ -1,23 +1,51 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import Event from './Event'
+import * as keys from 'constants/keyTypes'
 
-const EventList = ({ events, onEventClick, onHeartClick }) => (
-  <div className='list-container'>
-    <div className='line-top'></div>
-    <div className='line-bottom'></div>
-    <div className='line'></div>
-    <ul className='event-list'>
-      {events.sort((a, b) => a.eventYear - b.eventYear).map(event =>
-        <Event
-          key={event.id}
-          {...event}
-          onHeartClick={() => onHeartClick(event.id)}
-          onEventClick={() => onEventClick(event.id)}
-        />
-      )}
-    </ul>
-  </div>
-)
+export default class EventList extends Component {
+
+  componentWillMount () {
+    window.addEventListener('keydown', this.handleKeyDown)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  handleKeyDown = (e) => {
+    e.preventDefault()
+    const {onUpKey, onDownKey} = this.props
+    const keyCode = e.keyCode || e.which
+    const fnMap = {
+      [keys.UP]: onUpKey,
+      [keys.DOWN]: onDownKey
+    }
+    if (keyCode in fnMap) {
+      fnMap[keyCode]()
+    }
+  }
+
+  render () {
+    const { events, onEventClick, onHeartClick } = this.props
+    return (
+      <div className='list-container'>
+        <div className='line-top'></div>
+        <div className='line-bottom'></div>
+        <div className='line'></div>
+        <ul className='event-list'>
+          {events.sort((a, b) => a.eventYear - b.eventYear).map(event =>
+            <Event
+              key={event.id}
+              {...event}
+              onHeartClick={() => onHeartClick(event.id)}
+              onEventClick={() => onEventClick(event.id)}
+              />
+          )}
+        </ul>
+      </div>
+    )
+  }
+}
 
 EventList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
@@ -27,7 +55,9 @@ EventList.propTypes = {
     eventName: PropTypes.string.isRequired
   }).isRequired).isRequired,
   onHeartClick: PropTypes.func.isRequired,
-  onEventClick: PropTypes.func.isRequired
+  onEventClick: PropTypes.func.isRequired,
+  onUpKey: PropTypes.func.isRequired,
+  onDownKey: PropTypes.func.isRequired
 }
 
 export default EventList

@@ -31,6 +31,20 @@ const event = (state, action) => {
         })
       }
 
+    case types.MOVE_UP:
+      if (state.id !== action.id) {
+        return Object.assign({}, state, {active: false})
+      } else {
+        return Object.assign({}, state, {active: true})
+      }
+
+    case types.MOVE_DOWN:
+      if (state.id !== action.id) {
+        return Object.assign({}, state, {active: false})
+      } else {
+        return Object.assign({}, state, {active: true})
+      }
+
     default:
       return state
   }
@@ -50,6 +64,30 @@ const events = (state = [], action) => {
       )
 
     case types.SELECT_EVENT:
+      return state.map(e =>
+        event(e, action)
+      )
+
+    case types.MOVE_UP:
+      let moveUpIndex = state.reduce((acc, curr, i) => {
+        return (curr.active) ? i : acc
+      }, -1)
+      if (moveUpIndex > 0) {
+        moveUpIndex--
+      }
+      action.id = state[moveUpIndex].id
+      return state.map(e =>
+        event(e, action)
+      )
+
+    case types.MOVE_DOWN:
+      let moveDownIndex = state.reduce((acc, curr, i) => {
+        return (curr.active) ? i : acc
+      }, -1)
+      if (moveDownIndex < state.length - 1) {
+        moveDownIndex++
+      }
+      action.id = state[moveDownIndex].id
       return state.map(e =>
         event(e, action)
       )

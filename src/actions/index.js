@@ -30,3 +30,15 @@ export const selectEvent = (id) => {
     id
   }
 }
+
+export const moveUp = () => {
+  return {
+    type: types.MOVE_UP
+  }
+}
+
+export const moveDown = () => {
+  return {
+    type: types.MOVE_DOWN
+  }
+}

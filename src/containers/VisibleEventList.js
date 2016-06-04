@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { toggleLiked, selectEvent } from '../actions'
 import EventList from '../components/EventList'
+import {moveUp, moveDown} from 'actions'
 
 const getVisibleEvents = (todos, filter) => {
   switch (filter) {
@@ -26,6 +27,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onEventClick: (id) => {
       dispatch(selectEvent(id))
+    },
+    onUpKey: () => {
+      dispatch(moveUp())
+    },
+    onDownKey: () => {
+      dispatch(moveDown())
     }
   }
 }
