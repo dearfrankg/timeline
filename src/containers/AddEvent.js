@@ -48,7 +48,7 @@ class AddEvent extends Component {
             </div>
             <div className='pure-control-group'>
               <label>Description</label>
-              <input type='text' placeholder='description...' {...eventText} />
+              <textarea placeholder='description...' {...eventText} ></textarea>
             </div>
             <div className='pure-control-group'>
               <label>Image URL</label>
@@ -68,7 +68,7 @@ class AddEvent extends Component {
     return (
       <div>
         <button onClick={this.showModal}
-          className='pure-button pure-button-primary add-events-btn'>Add Events!</button>
+          className='pure-button pure-button-primary add-events-btn'>Add Events</button>
         {this.renderModal()}
       </div>
     )
