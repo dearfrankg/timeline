@@ -18,7 +18,8 @@
   "standard": {
     "parser": "babel-eslint",
     "globals": [
-      "__NODE_ENV__"
+      "__NODE_ENV__",
+      "localStorage"
     ]
   },
   "devDependencies": {
