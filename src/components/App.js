@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './Header'
-import EventCard from './EventCard'
+import EventCardContainer from 'containers/EventCardContainer'
 import AddEvent from 'containers/AddEvent'
 import VisibleEventList from 'containers/VisibleEventList'
 
@@ -9,7 +9,7 @@ const App = () => (
     <Header />
     <AddEvent />
     <VisibleEventList />
-    <EventCard />
+    <EventCardContainer />
   </div>
 )
 
