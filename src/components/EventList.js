@@ -26,7 +26,7 @@ export default class EventList extends Component {
   }
 
   render () {
-    const { events, onEventClick, onHeartClick } = this.props
+    const { events, onEventClick, onHeartClick, onDeleteClick } = this.props
     return (
       <div className='list-container'>
         <div className='line-top'></div>
@@ -37,8 +37,9 @@ export default class EventList extends Component {
             <Event
               key={event.id}
               {...event}
-              onHeartClick={() => onHeartClick(event.id)}
               onEventClick={() => onEventClick(event.id)}
+              onHeartClick={() => onHeartClick(event.id)}
+              onDeleteClick={() => onDeleteClick(event.id)}
               />
           )}
         </ul>
@@ -54,10 +55,11 @@ EventList.propTypes = {
     active: PropTypes.bool.isRequired,
     eventName: PropTypes.string.isRequired
   }).isRequired).isRequired,
-  onHeartClick: PropTypes.func.isRequired,
   onEventClick: PropTypes.func.isRequired,
   onUpKey: PropTypes.func.isRequired,
-  onDownKey: PropTypes.func.isRequired
+  onDownKey: PropTypes.func.isRequired,
+  onHeartClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 }
 
 export default EventList

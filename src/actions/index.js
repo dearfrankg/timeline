@@ -1,6 +1,13 @@
 import * as types from 'constants/actionTypes'
 import { getId } from 'utils'
 
+export const setVisibilityFilter = (filter) => {
+  return {
+    type: types.SET_VISIBILITY_FILTER,
+    filter
+  }
+}
+
 export const addEvent = (fields) => {
   return {
     type: types.ADD_EVENT,
@@ -9,10 +16,10 @@ export const addEvent = (fields) => {
   }
 }
 
-export const setVisibilityFilter = (filter) => {
+export const deleteEvent = (id) => {
   return {
-    type: types.SET_VISIBILITY_FILTER,
-    filter
+    type: types.DELETE_EVENT,
+    id
   }
 }
 
@@ -30,14 +37,14 @@ export const selectEvent = (id) => {
   }
 }
 
-export const moveUp = () => {
+export const selectPreviousEvemt = () => {
   return {
-    type: types.MOVE_UP
+    type: types.SELECT_PREVIOUS_EVENT
   }
 }
 
-export const moveDown = () => {
+export const selectNextEvent = () => {
   return {
-    type: types.MOVE_DOWN
+    type: types.SELECT_NEXT_EVENT
   }
 }

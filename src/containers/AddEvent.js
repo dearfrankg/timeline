@@ -9,8 +9,9 @@ class AddEvent extends Component {
     const {resetForm} = this.props
     return new Promise((resolve, reject) => {
       values.eventYear = parseInt(values.eventYear, 10) || 0
-      const valid = typeof values.eventName !== 'undefined'
-      && typeof values.eventText !== 'undefined'
+      const valid =
+        typeof values.eventName !== 'undefined' &&
+        typeof values.eventText !== 'undefined'
       if (valid) {
         dispatch(addEvent(values))
         resetForm()
@@ -36,8 +37,11 @@ class AddEvent extends Component {
 
     return (
       <Modal ref='modal'>
-        <form onSubmit={handleSubmit(this.validateForm)} className='pure-form pure-form-aligned'>
+        <form onSubmit={handleSubmit(this.validateForm)}
+          className='add-event-form pure-form pure-form-aligned'>
           <fieldset>
+            <legend>Add Event</legend>
+
             <div className='pure-control-group'>
               <label>Event Year</label>
               <input type='text' placeholder='event year...' {...eventYear} />
@@ -56,7 +60,7 @@ class AddEvent extends Component {
             </div>
             <div className='pure-control-group'>
               <label></label>
-              <button type='submit' className='pure-button pure-button-primary'>Add Event</button>
+              <button type='submit' className='pure-button pure-button-primary'>Submit</button>
             </div>
           </fieldset>
         </form>

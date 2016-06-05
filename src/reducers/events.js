@@ -8,9 +8,11 @@ const event = (state, action) => {
         eventYear: action.eventYear,
         eventName: action.eventName,
         eventText: action.eventText,
+        eventImageUrl: action.eventImageUrl,
         liked: false,
         active: false
       }
+
     case types.TOGGLE_LIKED:
       if (state.id !== action.id) {
         return state
@@ -31,14 +33,14 @@ const event = (state, action) => {
         })
       }
 
-    case types.MOVE_UP:
+    case types.SELECT_PREVIOUS_EVENT:
       if (state.id !== action.id) {
         return Object.assign({}, state, {active: false})
       } else {
         return Object.assign({}, state, {active: true})
       }
 
-    case types.MOVE_DOWN:
+    case types.SELECT_NEXT_EVENT:
       if (state.id !== action.id) {
         return Object.assign({}, state, {active: false})
       } else {
@@ -58,6 +60,9 @@ const events = (state = [], action) => {
         event(undefined, action)
       ]
 
+    case types.DELETE_EVENT:
+      return state.filter(e => (e.id !== action.id))
+
     case types.TOGGLE_LIKED:
       return state.map(e =>
         event(e, action)
@@ -68,26 +73,26 @@ const events = (state = [], action) => {
         event(e, action)
       )
 
-    case types.MOVE_UP:
-      let moveUpIndex = state.reduce((acc, curr, i) => {
+    case types.SELECT_PREVIOUS_EVENT:
+      let previousIndex = state.reduce((acc, curr, i) => {
         return (curr.active) ? i : acc
       }, -1)
-      if (moveUpIndex > 0) {
-        moveUpIndex--
+      if (previousIndex > 0) {
+        previousIndex--
       }
-      action.id = state[moveUpIndex].id
+      action.id = state[previousIndex].id
       return state.map(e =>
         event(e, action)
       )
 
-    case types.MOVE_DOWN:
-      let moveDownIndex = state.reduce((acc, curr, i) => {
+    case types.SELECT_NEXT_EVENT:
+      let nextIndex = state.reduce((acc, curr, i) => {
         return (curr.active) ? i : acc
       }, -1)
-      if (moveDownIndex < state.length - 1) {
-        moveDownIndex++
+      if (nextIndex < state.length - 1) {
+        nextIndex++
       }
-      action.id = state[moveDownIndex].id
+      action.id = state[nextIndex].id
       return state.map(e =>
         event(e, action)
       )

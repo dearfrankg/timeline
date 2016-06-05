@@ -5,7 +5,8 @@ import AddEvent from 'containers/AddEvent'
 import VisibleEventList from 'containers/VisibleEventList'
 
 const App = () => (
-  <div>
+  <div className='app-container'>
+
     <Header />
     <AddEvent />
     <VisibleEventList />
