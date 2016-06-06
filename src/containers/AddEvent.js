@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddEventClick: (id) => dispatch(actions.openModal(id))
+    onAddEventClick: (id) => dispatch(actions.openModal(id)),
+    setModalToFalse: () => dispatch(actions.closeModal())
   }
 }
 

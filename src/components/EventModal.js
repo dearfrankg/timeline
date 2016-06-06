@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {reduxForm} from 'redux-form'
 import { DropModal as Modal } from 'boron'
+import * as actions from 'actions'
 
 class EventModal extends Component {
   showModal = () => {
@@ -11,23 +12,37 @@ class EventModal extends Component {
     this.refs.modal.hide()
   }
 
-  componentWillUpdate () {
-    console.log(55);
-    console.log(this.props);
+  componentDidUpdate () {
     const {modal} = this.props
-    console.log(modal);
     modal ? this.showModal() : this.hideModal()
+  }
+
+  validateForm = (values, dispatch) => {
+    const {resetForm} = this.props
+    return new Promise((resolve, reject) => {
+      values.eventYear = parseInt(values.eventYear, 10) || 0
+      const valid =
+        typeof values.eventName !== 'undefined' &&
+        typeof values.eventText !== 'undefined'
+      if (valid) {
+        dispatch(actions.addEvent(values))
+        resetForm()
+        resolve()
+      } else {
+        reject()
+      }
+    })
   }
 
   render () {
     const {
       fields: {eventYear, eventName, eventText, eventImageUrl},
-      handleSubmit, validateForm
+      handleSubmit, setModalToFalse
     } = this.props
 
     return (
-      <Modal ref='modal'>
-        <form onSubmit={handleSubmit(validateForm)}
+      <Modal ref='modal' onHide={setModalToFalse} >
+        <form onSubmit={handleSubmit(this.validateForm)}
           className='add-event-form pure-form pure-form-aligned'>
           <fieldset>
             <legend>Add Event</legend>
