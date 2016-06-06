@@ -23,6 +23,13 @@ export const deleteEvent = (id) => {
   }
 }
 
+export const editEvent = (id) => {
+  return {
+    type: types.EDIT_EVENT,
+    id
+  }
+}
+
 export const toggleLiked = (id) => {
   return {
     type: types.TOGGLE_LIKED,
@@ -46,5 +53,17 @@ export const selectPreviousEvemt = () => {
 export const selectNextEvent = () => {
   return {
     type: types.SELECT_NEXT_EVENT
+  }
+}
+
+export const openModal = () => {
+  return {
+    type: types.OPEN_MODAL
+  }
+}
+
+export const closeModal = () => {
+  return {
+    type: types.CLOSE_MODAL
   }
 }

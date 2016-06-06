@@ -23,10 +23,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onEventClick: (id) => dispatch(actions.selectEvent(id)),
+    onEventDblClick: (id) => dispatch(actions.editEvent(id)),
     onUpKey: () => dispatch(actions.selectPreviousEvemt()),
     onDownKey: () => dispatch(actions.selectNextEvent()),
     onHeartClick: (id) => dispatch(actions.toggleLiked(id)),
-    onDeleteClick: (id) => dispatch(actions.deleteEvent(id))
+    onDeleteClick: (id) => dispatch(actions.deleteEvent(id)),
+    dispatch
   }
 }
 
