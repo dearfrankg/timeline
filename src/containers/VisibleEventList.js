@@ -23,7 +23,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onEventClick: (id) => dispatch(actions.selectEvent(id)),
-    onEventDblClick: (id) => dispatch(actions.editEvent(id)),
+    onEventDblClick: (event) => {
+      dispatch(actions.setModalEvent(event))
+      dispatch(actions.openModal())
+    },
     onUpKey: () => dispatch(actions.selectPreviousEvemt()),
     onDownKey: () => dispatch(actions.selectNextEvent()),
     onHeartClick: (id) => dispatch(actions.toggleLiked(id)),

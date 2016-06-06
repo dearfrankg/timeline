@@ -13,20 +13,27 @@ class EventModal extends Component {
   }
 
   componentDidUpdate () {
-    const {modal} = this.props
-    modal ? this.showModal() : this.hideModal()
+    const {showModal} = this.props
+    showModal ? this.showModal() : this.hideModal()
   }
 
   validateForm = (values, dispatch) => {
-    const {resetForm} = this.props
+    const {resetForm, modalEvent} = this.props
     return new Promise((resolve, reject) => {
       values.eventYear = parseInt(values.eventYear, 10) || 0
       const valid =
         typeof values.eventName !== 'undefined' &&
         typeof values.eventText !== 'undefined'
       if (valid) {
-        dispatch(actions.addEvent(values))
-        resetForm()
+        if (modalEvent.id) {
+          values.id = modalEvent.id
+          dispatch(actions.updateEvent(values))
+          dispatch(actions.setModalEvent({}))
+          dispatch(actions.closeModal())
+        } else {
+          dispatch(actions.addEvent(values))
+          resetForm()
+        }
         resolve()
       } else {
         reject()
@@ -37,11 +44,11 @@ class EventModal extends Component {
   render () {
     const {
       fields: {eventYear, eventName, eventText, eventImageUrl},
-      handleSubmit, setModalToFalse
+      handleSubmit, onModalClose
     } = this.props
 
     return (
-      <Modal ref='modal' onHide={setModalToFalse} >
+      <Modal ref='modal' onHide={onModalClose} >
         <form onSubmit={handleSubmit(this.validateForm)}
           className='add-event-form pure-form pure-form-aligned'>
           <fieldset>
@@ -77,4 +84,8 @@ class EventModal extends Component {
 export default reduxForm({
   form: 'eventForm',
   fields: ['eventYear', 'eventName', 'eventText', 'eventImageUrl']
-})(EventModal)
+},
+(state) => ({
+  initialValues: state.modal.modalEvent
+})
+)(EventModal)

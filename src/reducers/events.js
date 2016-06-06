@@ -13,6 +13,12 @@ const event = (state, action) => {
         active: false
       }
 
+    case types.UPDATE_EVENT:
+      if (state.id !== action.event.id) {
+        return state
+      }
+      return Object.assign({}, state, action.event)
+
     case types.TOGGLE_LIKED:
       if (state.id !== action.id) {
         return state
@@ -62,6 +68,11 @@ const events = (state = [], action) => {
 
     case types.DELETE_EVENT:
       return state.filter(e => (e.id !== action.id))
+
+    case types.UPDATE_EVENT:
+      return state.map(e =>
+        event(e, action)
+      )
 
     case types.TOGGLE_LIKED:
       return state.map(e =>

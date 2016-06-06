@@ -26,7 +26,10 @@ export default class EventList extends Component {
   }
 
   render () {
-    const { events, onEventClick, onHeartClick, onDeleteClick } = this.props
+    const {
+      events, onEventClick, onHeartClick, onDeleteClick,
+      onEventDblClick
+    } = this.props
     return (
       <div className='list-container'>
         <div className='line-top'></div>
@@ -36,10 +39,11 @@ export default class EventList extends Component {
           {events.sort((a, b) => a.eventYear - b.eventYear).map(event =>
             <Event
               key={event.id}
-              {...event}
+              event={event}
               onEventClick={() => onEventClick(event.id)}
               onHeartClick={() => onHeartClick(event.id)}
               onDeleteClick={() => onDeleteClick(event.id)}
+              onEventDblClick={() => onEventDblClick(event)}
               />
           )}
         </ul>

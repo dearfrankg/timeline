@@ -23,10 +23,17 @@ export const deleteEvent = (id) => {
   }
 }
 
-export const editEvent = (id) => {
+export const updateEvent = (event) => {
   return {
-    type: types.EDIT_EVENT,
-    id
+    type: types.UPDATE_EVENT,
+    event
+  }
+}
+
+export const setModalEvent = (event) => {
+  return {
+    type: types.SET_MODAL_EVENT,
+    event
   }
 }
 
