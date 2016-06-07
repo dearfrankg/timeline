@@ -8,8 +8,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const EventCardContainer = connect(
+export default connect(
   mapStateToProps
 )(EventCard)
-
-export default EventCardContainer

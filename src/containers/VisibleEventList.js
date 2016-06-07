@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { toggleLiked, selectEvent } from '../actions'
 import EventList from '../components/EventList'
 import * as actions from 'actions'
 
@@ -35,9 +34,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const VisibleEventList = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(EventList)
-
-export default VisibleEventList

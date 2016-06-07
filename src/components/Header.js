@@ -1,21 +1,21 @@
 import React from 'react'
-import FilterLink from 'containers/FilterLink'
+import Link from 'containers/Link'
 
 const Header = () => (
   <p>
     Show:
     {' '}
-    <FilterLink filter='SHOW_ALL'>
+    <Link filter='SHOW_ALL'>
       All
-    </FilterLink>
+    </Link>
     {', '}
-    <FilterLink filter='SHOW_AVERAGE'>
+    <Link filter='SHOW_AVERAGE'>
       Average
-    </FilterLink>
+    </Link>
     {', '}
-    <FilterLink filter='SHOW_LIKED'>
+    <Link filter='SHOW_LIKED'>
       Liked
-    </FilterLink>
+    </Link>
   </p>
 )
 
