@@ -2,14 +2,12 @@ import { connect } from 'react-redux'
 import EventList from '../components/EventList'
 import * as actions from 'actions'
 
-const getVisibleEvents = (todos, filter) => {
+const getVisibleEvents = (events, filter) => {
   switch (filter) {
     case 'SHOW_ALL':
-      return todos
-    case 'SHOW_AVERAGE':
-      return todos.filter(t => t.completed)
+      return events
     case 'SHOW_LIKED':
-      return todos.filter(t => !t.completed)
+      return events.filter(t => t.liked)
   }
 }
 

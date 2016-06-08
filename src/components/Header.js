@@ -9,10 +9,6 @@ const Header = () => (
       All
     </Link>
     {', '}
-    <Link filter='SHOW_AVERAGE'>
-      Average
-    </Link>
-    {', '}
     <Link filter='SHOW_LIKED'>
       Liked
     </Link>
