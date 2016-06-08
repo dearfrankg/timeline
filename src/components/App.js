@@ -8,8 +8,10 @@ const App = () => (
   <div className='app-container'>
     <Header />
     <AddEvent />
-    <VisibleEventList />
-    <EventCard />
+    <div className='content-container' >
+      <VisibleEventList />
+      <EventCard />
+    </div>
   </div>
 )
 
