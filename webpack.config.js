@@ -49,6 +49,7 @@ addPostCssSupport()
 addFatEnvSupport()
 addResolveSupport()
 addTestSupport()
+addBrowserTweaks()
 
 // console.log(JSON.stringify(config, null, 2))
 module.exports = config
@@ -110,7 +111,7 @@ function addFatEnvSupport () {
 }
 
 function addResolveSupport () {
-  config.resolve.root = [src, modules]
+  config.resolve.root = [modules]
   config.resolve.alias = {
     'actions': join(src, 'actions'),
     'components': join(src, 'components'),
@@ -118,6 +119,7 @@ function addResolveSupport () {
     'containers': join(src, 'containers'),
     'reducers': join(src, 'reducers'),
     'store': join(src, 'store'),
+    'services': join(src, 'services'),
     'utils': join(src, 'utils'),
     'styles': join(src, 'styles')
   }
@@ -142,6 +144,18 @@ function addTestSupport () {
       ].indexOf(fnName[1])
       return idx < 0
     })
+  }
+}
+
+function addBrowserTweaks () {
+  // prevents error: Cannot resolve module 'fs'
+  // when using node modules in the browser
+  config.node = {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    'test/service-account-creds': false,
+    'index.js': false
   }
 }
 
