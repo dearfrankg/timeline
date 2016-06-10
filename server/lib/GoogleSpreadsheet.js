@@ -6,6 +6,16 @@ class GoogleSpreadsheet {
     this.sheetId = sheetId
     this.sheet = new GoogleSheetsNodeApi(sheetId)
     this.ssFields = fields
+    this.getSpreadsheetData()
+      .then((data) => {
+        this.cache = {}
+        data.worksheets.forEach((ws) => {
+          this.cache[ws.title] = {}
+          this.cache[ws.title].getRows = ws.getRows
+          this.cache[ws.title].addRow = ws.addRow
+        })
+        // console.log(this.cache)
+      })
   }
 
   // promise <- getSpreadsheet()
@@ -16,18 +26,12 @@ class GoogleSpreadsheet {
 
   // promise <- createRow(string, object)
   createRow = (worksheetName, rowObject) => {
-    return this.getSpreadsheetData()
-      .then((data) => {
-        const sheet = data.worksheets.filter((ws) => ws.title === worksheetName)[0]
-        return sheet.addRow(rowObject)
-      })
+    return this.cache[worksheetName].addRow(rowObject)
   }
 
   // array[objects] <- readRows(string)
   readRows = (worksheetName) => {
-    return this.getSpreadsheetData()
-      .then((data) => data.worksheets.filter((ws) => ws.title === worksheetName)[0])
-      .then(sheet => sheet.getRows())
+    return this.cache[worksheetName].getRows()
       .then(rows => {
         let row
         let rowId = 0
@@ -46,9 +50,7 @@ class GoogleSpreadsheet {
 
   // promise <- updateRow(string, number, object)
   updateRow = (worksheetName, rowId, rowObject) => {
-    return this.getSpreadsheetData()
-      .then((data) => data.worksheets.filter((ws) => ws.title === worksheetName)[0])
-      .then(sheet => sheet.getRows())
+    return this.cache[worksheetName].getRows()
       .then(rows => {
         this.ssFields.forEach((f) => {
           rows[rowId][f] = rowObject[f]
@@ -59,9 +61,7 @@ class GoogleSpreadsheet {
 
   // promise <- deleteRow(string, number)
   deleteRow = (worksheetName, rowId) => {
-    return this.getSpreadsheetData()
-      .then((data) => data.worksheets.filter((ws) => ws.title === worksheetName)[0])
-      .then(sheet => sheet.getRows())
+    return this.cache[worksheetName].getRows()
       .then(rows => rows[rowId].delete())
   }
 
@@ -69,7 +69,7 @@ class GoogleSpreadsheet {
     const sheet = this.sheet
     return sheet.useServiceAccountAuth(creds)
       .then(sheet.getSpreadsheet.bind(sheet))
-      .then(console.log.bind(console))
+      // .then(console.log.bind(console))
   }
 
   getWorksheets = (data) => {
