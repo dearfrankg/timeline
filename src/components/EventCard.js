@@ -1,17 +1,16 @@
 import React from 'react'
 
-const EventCard = (props) => {
-  const {activeEvent} = props
-  if (typeof activeEvent === 'undefined') {
+const EventCard = ({activeEvent}) => {
+  if (typeof activeEvent.id === 'undefined') {
     return null
   }
   return (
     <div className='event-card'>
       <div className='event-image'>
-        <img src={activeEvent.eventImageUrl} />
-        <h3>{activeEvent.eventYear} - {activeEvent.eventName}</h3>
+        <img src={activeEvent.url} />
+        <h3>{activeEvent.year} - {activeEvent.name}</h3>
       </div>
-      <span>{activeEvent.eventText}</span>
+      <span>{activeEvent.desc}</span>
     </div>
   )
 }

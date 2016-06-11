@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import EventCard from 'components/EventCard'
 
 const mapStateToProps = (state) => {
-  const [activeEvent] = state.events.filter((e) => e.active)
+  const activeEvent = state.sheets.activeEvent || {}
   return {
     activeEvent
   }

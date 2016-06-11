@@ -1,18 +1,14 @@
 import React from 'react'
-import Link from 'containers/Link'
+import Filter from 'components/Filter'
+import AddEvent from 'containers/AddEvent'
+import TimelineSelect from 'containers/TimelineSelect'
 
 const Header = () => (
-  <p>
-    Show:
-    {' '}
-    <Link filter='SHOW_ALL'>
-      All
-    </Link>
-    {', '}
-    <Link filter='SHOW_LIKED'>
-      Liked
-    </Link>
-  </p>
+  <div className='header' >
+    <TimelineSelect />
+    <Filter />
+    <AddEvent />
+  </div>
 )
 
 export default Header

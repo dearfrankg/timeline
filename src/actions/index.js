@@ -57,17 +57,19 @@ export const selectEvent = (event) => {
   }
 }
 
-export const selectPreviousEvemt = (worksheetName) => {
+export const selectPreviousEvemt = (worksheetName, event) => {
   return {
     type: types.SELECT_PREVIOUS_EVENT,
-    worksheetName
+    worksheetName,
+    event
   }
 }
 
-export const selectNextEvent = (worksheetName) => {
+export const selectNextEvent = (worksheetName, event) => {
   return {
     type: types.SELECT_NEXT_EVENT,
-    worksheetName
+    worksheetName,
+    event
   }
 }
 

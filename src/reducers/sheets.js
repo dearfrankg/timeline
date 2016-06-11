@@ -1,4 +1,6 @@
 import * as types from 'constants/actionTypes'
+import {sortByYear} from 'utils'
+
 //
 // const event = (state, action) => {
 //   switch (action.type) {
@@ -81,11 +83,11 @@ const sheets = (state = initialState, action) => {
       }
 
     case types.SELECT_PREVIOUS_EVENT:
-      let events = state.worksheets[action.worksheetName]
+      let events = state.worksheets[action.worksheetName].sort(sortByYear)
       let previousIndex = events.reduce((acc, curr, i) => {
-        const index = (curr.id === action.id) ? i : acc
-        return (index > 0) ? index - 1 : 0
+        return (curr.id === action.event.id) ? i : acc
       }, -1)
+      previousIndex = (previousIndex > 0) ? previousIndex - 1 : 0
       let activeEvent = events[previousIndex]
       return {
         ...state,
@@ -93,17 +95,16 @@ const sheets = (state = initialState, action) => {
       }
 
     case types.SELECT_NEXT_EVENT:
-      events = state.worksheets[action.worksheetName]
+      events = state.worksheets[action.worksheetName].sort(sortByYear)
       let nextIndex = events.reduce((acc, curr, i) => {
-        const index = (curr.id === action.id) ? i : acc
-        return (index < events.length - 1) ? index + 1 : events.length - 1
+        return (curr.id === action.event.id) ? i : acc
       }, -1)
+      nextIndex = (nextIndex < events.length - 1) ? nextIndex + 1 : events.length - 1
       activeEvent = events[nextIndex]
       return {
         ...state,
         activeEvent: activeEvent
       }
-
 
     //
     // case types.ADD_EVENT:

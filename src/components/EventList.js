@@ -13,7 +13,9 @@ export default class EventList extends Component {
   }
 
   handleKeyDown = (e) => {
-    const {onUpKey, onDownKey, timelineSelected} = this.props
+    const {
+      onUpKey, onDownKey, timelineSelected, activeEvent
+    } = this.props
     const keyCode = e.keyCode || e.which
     const fnMap = {
       [keys.UP]: onUpKey,
@@ -21,7 +23,7 @@ export default class EventList extends Component {
     }
     if (keyCode in fnMap) {
       e.preventDefault()
-      fnMap[keyCode](timelineSelected)
+      fnMap[keyCode](timelineSelected, activeEvent)
     }
   }
 
@@ -37,7 +39,7 @@ export default class EventList extends Component {
         <div className='line-bottom'></div>
         <div className='line'></div>
         <ul className='event-list'>
-          {events.sort((a, b) => a.year - b.year).map(event => {
+          {events.map(event => {
             return (
               <Event
                 key={event.id}
