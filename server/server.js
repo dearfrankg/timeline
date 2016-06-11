@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import createGoogleSpreadsheet from './lib/GoogleSpreadsheet'
 
 const sheetId = '1McniDRimAOf4fT40pbYgGMP_8pK8JSFL40EnA2Sj6G0'
-const ssFields = ['year', 'name', 'desc', 'url']
+const ssFields = ['year', 'name', 'desc', 'url', 'liked']
 const gs = createGoogleSpreadsheet(sheetId, ssFields)
 
 const port = process.env.PORT || 8100

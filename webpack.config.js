@@ -56,6 +56,15 @@ module.exports = config
 
 function addDevServerCustomizations () {
   if (config.devServer) {
+    config.devServer.proxy = {
+      context: '/api',
+      options: {
+        target: 'http://localhost:8100',
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
     config.devServer.contentBase = assets
     config.devServer.stats = 'errors-only'
   }

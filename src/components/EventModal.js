@@ -86,6 +86,6 @@ export default reduxForm({
   fields: ['eventYear', 'eventName', 'eventText', 'eventImageUrl']
 },
 (state) => ({
-  initialValues: state.modal.modalEvent
+  initialValues: state.UI.modal.modalEvent
 })
 )(EventModal)

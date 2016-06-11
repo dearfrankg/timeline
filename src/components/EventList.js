@@ -13,7 +13,7 @@ export default class EventList extends Component {
   }
 
   handleKeyDown = (e) => {
-    const {onUpKey, onDownKey} = this.props
+    const {onUpKey, onDownKey, timelineSelected} = this.props
     const keyCode = e.keyCode || e.which
     const fnMap = {
       [keys.UP]: onUpKey,
@@ -21,31 +21,35 @@ export default class EventList extends Component {
     }
     if (keyCode in fnMap) {
       e.preventDefault()
-      fnMap[keyCode]()
+      fnMap[keyCode](timelineSelected)
     }
   }
 
   render () {
     const {
-      events, onEventClick, onHeartClick, onDeleteClick,
-      onEventDblClick
+      events, activeEvent,
+      onEventClick, onEventDblClick, onHeartClick, onDeleteClick
     } = this.props
+
     return (
       <div className='list-container'>
         <div className='line-top'></div>
         <div className='line-bottom'></div>
         <div className='line'></div>
         <ul className='event-list'>
-          {events.sort((a, b) => a.eventYear - b.eventYear).map(event =>
-            <Event
-              key={event.id}
-              event={event}
-              onEventClick={() => onEventClick(event.id)}
-              onHeartClick={() => onHeartClick(event.id)}
-              onDeleteClick={() => onDeleteClick(event.id)}
-              onEventDblClick={() => onEventDblClick(event)}
-              />
-          )}
+          {events.sort((a, b) => a.year - b.year).map(event => {
+            return (
+              <Event
+                key={event.id}
+                activeEvent={activeEvent}
+                event={event}
+                onEventClick={() => onEventClick(event)}
+                onEventDblClick={() => onEventDblClick(event)}
+                onHeartClick={() => onHeartClick(event.id)}
+                onDeleteClick={() => onDeleteClick(event.id)}
+                />
+              )
+          })}
         </ul>
       </div>
     )
@@ -54,14 +58,15 @@ export default class EventList extends Component {
 
 EventList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    liked: PropTypes.bool.isRequired,
-    active: PropTypes.bool.isRequired,
-    eventName: PropTypes.string.isRequired
+    id: PropTypes.number.isRequired,
+    liked: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
   }).isRequired).isRequired,
-  onEventClick: PropTypes.func.isRequired,
+  activeEvent: PropTypes.object.isRequired,
   onUpKey: PropTypes.func.isRequired,
   onDownKey: PropTypes.func.isRequired,
+  onEventClick: PropTypes.func.isRequired,
+  onEventDblClick: PropTypes.func.isRequired,
   onHeartClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired
 }

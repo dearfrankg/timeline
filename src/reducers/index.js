@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux'
 import {reducer as formReducer} from 'redux-form'
-import events from './events'
-import visibilityFilter from './visibilityFilter'
-import modal from './modal'
+import sheets from './sheets'
+import UI from './UI'
 
 const rootReducer = combineReducers({
-  events,
-  visibilityFilter,
-  form: formReducer,
-  modal
+  UI,
+  sheets,
+  form: formReducer
 })
 
 export default rootReducer

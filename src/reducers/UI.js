@@ -1,0 +1,32 @@
+import * as types from 'constants/actionTypes'
+
+const initialState = {
+  visibilityFilter: 'SHOW_ALL',
+  modal: false,
+  timelineSelect: ''
+}
+
+const UI = (state = initialState, action) => {
+  state = Object.assign({}, initialState, state)
+  switch (action.type) {
+    case types.SET_VISIBILITY_FILTER:
+      return {...state, visibilityFilter: action.filter}
+
+    case types.OPEN_MODAL:
+      return {...state, modal: { showModal: true }}
+
+    case types.CLOSE_MODAL:
+      return {...state, modal: { showModal: false }}
+
+    case types.SET_MODAL_EVENT:
+      return {...state, modal: { modalEvent: action.event }}
+
+    case types.SELECT_TIMELINE:
+      return {...state, timelineSelect: action.worksheetName}
+
+    default:
+      return state
+  }
+}
+
+export default UI

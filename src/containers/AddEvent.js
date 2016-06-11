@@ -4,8 +4,8 @@ import AddEvent from 'components/AddEvent'
 
 const mapStateToProps = (state) => {
   return {
-    showModal: state.modal.showModal,
-    modalEvent: state.modal.modalEvent
+    showModal: state.UI.modal.showModal,
+    modalEvent: state.UI.modal.modalEvent
   }
 }
 
