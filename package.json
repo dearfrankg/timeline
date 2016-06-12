@@ -10,7 +10,8 @@
     "publish_pages": "gh-pages -d dist",
     "ghpages": "npm run build && npm run publish_pages",
     "test": "NODE_ENV=test karma start karma.conf.js",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "api": "babel-node server/server.js"
   },
   "keywords": [],
   "author": "",

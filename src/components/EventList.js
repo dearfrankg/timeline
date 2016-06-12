@@ -12,6 +12,15 @@ export default class EventList extends Component {
     window.removeEventListener('keydown', this.handleKeyDown)
   }
 
+  componentDidUpdate () {
+    const {activeEvent, events} = this.props
+    const activeEventIndex = events.reduce((acc, curr, i) => {
+      return (curr.id === activeEvent.id) ? i : acc
+    }, -1)
+    const scrollUnits = (activeEventIndex < 6) ? 0 : activeEventIndex - 6
+    window.scroll(window.scrollX, scrollUnits * 29)
+  }
+
   handleKeyDown = (e) => {
     const {
       onUpKey, onDownKey, timelineSelected, activeEvent
