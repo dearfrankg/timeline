@@ -158,7 +158,7 @@ function addTestSupport () {
 
 function addBrowserTweaks () {
   // prevents error: Cannot resolve module 'fs'
-  // when using node modules in the browser
+  // when using nodejs modules in the browser
   config.node = {
     fs: 'empty',
     net: 'empty',
