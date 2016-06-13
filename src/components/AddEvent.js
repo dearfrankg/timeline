@@ -3,7 +3,7 @@ import EventModal from 'components/EventModal'
 
 const AddEvent = (props) => {
   const {
-    onAddEventClick, showModal, onModalClose, modalEvent
+    onAddEventClick, showModal, onModalClose, activeEvent, worksheetName
   } = props
   return (
     <div>
@@ -11,7 +11,8 @@ const AddEvent = (props) => {
         className='pure-button pure-button-primary add-events-btn'>Add Events</button>
       <EventModal
         showModal={showModal}
-        modalEvent={modalEvent}
+        activeEvent={activeEvent}
+        worksheetName={worksheetName}
         onModalClose={onModalClose} />
     </div>
   )

@@ -5,13 +5,14 @@ import AddEvent from 'components/AddEvent'
 const mapStateToProps = (state) => {
   return {
     showModal: state.UI.modal.showModal,
-    modalEvent: state.UI.modal.modalEvent
+    activeEvent: state.sheets.activeEvent,
+    worksheetName: state.UI.timelineSelect
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddEventClick: (id) => dispatch(actions.openModal(id)),
+    onAddEventClick: () => dispatch(actions.openModal()),
     onModalClose: () => {
       dispatch(actions.closeModal())
       dispatch(actions.setModalEvent({}))

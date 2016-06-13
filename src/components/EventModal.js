@@ -3,6 +3,7 @@ import {reduxForm} from 'redux-form'
 import { DropModal as Modal } from 'boron'
 import * as actions from 'actions'
 
+
 class EventModal extends Component {
   showModal = () => {
     this.refs.modal.show()
@@ -18,20 +19,19 @@ class EventModal extends Component {
   }
 
   validateForm = (values, dispatch) => {
-    const {resetForm, modalEvent} = this.props
+    const {resetForm, activeEvent, worksheetName} = this.props
     return new Promise((resolve, reject) => {
-      values.eventYear = parseInt(values.eventYear, 10) || 0
       const valid =
-        typeof values.eventName !== 'undefined' &&
-        typeof values.eventText !== 'undefined'
+        typeof values.name !== 'undefined' &&
+        typeof values.desc !== 'undefined'
       if (valid) {
-        if (modalEvent.id) {
-          values.id = modalEvent.id
+        if (activeEvent.id) {
+          values.id = activeEvent.id
           dispatch(actions.updateEvent(values))
           dispatch(actions.setModalEvent({}))
           dispatch(actions.closeModal())
         } else {
-          dispatch(actions.addEvent(values))
+          dispatch(actions.add(values, worksheetName))
           resetForm()
         }
         resolve()
@@ -43,7 +43,7 @@ class EventModal extends Component {
 
   render () {
     const {
-      fields: {eventYear, eventName, eventText, eventImageUrl},
+      fields: {year, name, desc, url},
       handleSubmit, onModalClose
     } = this.props
 
@@ -56,19 +56,19 @@ class EventModal extends Component {
 
             <div className='pure-control-group'>
               <label>Event Year</label>
-              <input type='text' placeholder='event year...' {...eventYear} />
+              <input type='text' placeholder='event year...' {...year} />
             </div>
             <div className='pure-control-group'>
               <label>Event Name</label>
-              <input type='text' placeholder='event name...' {...eventName} />
+              <input type='text' placeholder='event name...' {...name} />
             </div>
             <div className='pure-control-group'>
               <label>Description</label>
-              <textarea placeholder='description...' {...eventText} ></textarea>
+              <textarea placeholder='description...' {...desc} ></textarea>
             </div>
             <div className='pure-control-group'>
               <label>Image URL</label>
-              <input type='text' placeholder='image-url...' {...eventImageUrl} />
+              <input type='text' placeholder='image-url...' {...url} />
             </div>
             <div className='pure-control-group'>
               <label></label>
@@ -83,9 +83,11 @@ class EventModal extends Component {
 
 export default reduxForm({
   form: 'eventForm',
-  fields: ['eventYear', 'eventName', 'eventText', 'eventImageUrl']
+  fields: ['year', 'name', 'desc', 'url']
 },
-(state) => ({
-  initialValues: state.UI.modal.modalEvent
-})
+(state) => {
+  return {
+    initialValues: state.sheets.activeEvent
+  }
+}
 )(EventModal)

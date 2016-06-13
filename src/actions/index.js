@@ -1,7 +1,8 @@
 import * as types from 'constants/actionTypes'
 import { getId } from 'utils'
-import GoogleSpreadsheet from 'services/GoogleSpreadsheet'
+import createGoogleSpreadsheet from 'services/GoogleSpreadsheet'
 
+const GoogleSpreadsheet = createGoogleSpreadsheet()
 //
 // UI VISIBILITY_FILTER
 //
@@ -106,15 +107,30 @@ export const toggleLiked = (id) => {
 //   }
 // }
 
-export const fetchAdd = (event) => {
+export const add = (event, worksheetName) => {
   return (dispatch) => {
-    dispatch(requestAdd())
-    return GoogleSpreadsheet.getAddRow(event)
-      .then((json) => {
-        dispatch(receiveAdd(json))
+    dispatch(addRequest())
+    return GoogleSpreadsheet.addRow(event)
+      .then(() => {
+        dispatch(addSuccess(event, worksheetName))
       })
   }
 }
+
+export const addRequest = () => {
+  return {
+    type: types.ADD_REQUEST
+  }
+}
+
+export const addSuccess = (event, worksheetName) => {
+  return {
+    type: types.ADD_SUCCESS,
+    event,
+    worksheetName
+  }
+}
+
 export const fetchRead = () => {
   return (dispatch) => {
     dispatch(requestRead())
@@ -143,11 +159,6 @@ export const fetchDelete = (event) => {
   }
 }
 
-export const requestAdd = () => {
-  return {
-    type: types.REQUEST_ADD
-  }
-}
 
 export const requestRead = () => {
   return {
@@ -164,12 +175,6 @@ export const requestUpdate = () => {
 export const requestDelete = () => {
   return {
     type: types.REQUEST_DELETE
-  }
-}
-export const receiveAdd = (event) => {
-  return {
-    type: types.RECEIVE_ADD,
-    event
   }
 }
 

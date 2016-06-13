@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 
 const initialState = {
   visibilityFilter: 'SHOW_ALL',
-  modal: false,
+  modal: {},
   timelineSelect: ''
 }
 

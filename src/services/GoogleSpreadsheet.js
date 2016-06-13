@@ -1,12 +1,21 @@
 import fetch from 'isomorphic-fetch'
 import {alphaSort} from 'utils'
 
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+}
+
 class GoogleSpreadsheet {
   constructor () {
     this.base = 'http://localhost:8080/api'
   }
   addRow = (event) => {
-    return fetch(this.base + '/api/v1/events/physics', { method: 'POST', body: event })
+    return fetch(this.base + '/api/v1/events/physics', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(event)
+    })
       .catch((error) => {
         console.log('error: ', error)
       })
@@ -19,7 +28,11 @@ class GoogleSpreadsheet {
       })
   }
   updateRow = (event) => {
-    return fetch(this.base + '/api/v1/events/physics/' + event.id, { method: 'PUT', body: event })
+    return fetch(this.base + '/api/v1/events/physics/' + event.id, {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify(event)
+    })
       .catch((error) => {
         console.log('error: ', error)
       })
