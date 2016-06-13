@@ -157,12 +157,12 @@ export const updateEventSuccess = (event, worksheetName) => {
   }
 }
 
-export const deleteEvent = (event) => {
+export const deleteEvent = (event, worksheetName) => {
   return (dispatch) => {
     dispatch(deleteEventRequest())
     return GoogleSpreadsheet.deleteRow(event)
       .then((json) => {
-        dispatch(deleteEventSuccess(event))
+        dispatch(deleteEventSuccess(event, worksheetName))
       })
   }
 }
@@ -173,8 +173,10 @@ export const deleteEventRequest = () => {
   }
 }
 
-export const deleteEventSuccess = () => {
+export const deleteEventSuccess = (event, worksheetName) => {
   return {
-    type: types.DELETE_EVENT_SUCCESS
+    type: types.DELETE_EVENT_SUCCESS,
+    event,
+    worksheetName
   }
 }

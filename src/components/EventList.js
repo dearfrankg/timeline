@@ -38,7 +38,7 @@ export default class EventList extends Component {
 
   render () {
     const {
-      events, activeEvent,
+      events, activeEvent, timelineSelected,
       onEventClick, onEventDblClick, onHeartClick, onDeleteClick
     } = this.props
 
@@ -57,7 +57,7 @@ export default class EventList extends Component {
                 onEventClick={() => onEventClick(event)}
                 onEventDblClick={() => onEventDblClick(event)}
                 onHeartClick={() => onHeartClick(event.id)}
-                onDeleteClick={() => onDeleteClick(event.id)}
+                onDeleteClick={() => onDeleteClick(event, timelineSelected)}
                 />
               )
           })}

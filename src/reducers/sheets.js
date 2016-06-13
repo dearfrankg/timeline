@@ -34,8 +34,10 @@ const events = (state = [], action) => {
     case types.UPDATE_EVENT_SUCCESS:
       return state.map((e) => event(e, action))
 
-    case types.DELETE_EVENT:
-      return state.filter(e => (e.id !== action.id))
+    case types.DELETE_EVENT_SUCCESS:
+      return state.filter(e => {
+        e.id !== action.event.id
+      })
 
     case types.UPDATE_EVENT:
       return state.map(e =>
@@ -116,6 +118,16 @@ const sheets = (state = initialState, action) => {
         worksheets: {
           ...state.worksheets,
           [action.worksheetName]: events(updateEventSuccessRows, action)
+        }
+      }
+
+    case types.DELETE_EVENT_SUCCESS:
+      const deleteEventSuccessRows = state.worksheets[action.worksheetName]
+      return {
+        ...state,
+        worksheets: {
+          ...state.worksheets,
+          [action.worksheetName]: events(deleteEventSuccessRows, action)
         }
       }
 

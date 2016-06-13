@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.openModal())
     },
     onHeartClick: (id) => dispatch(actions.toggleLiked(id)),
-    onDeleteClick: (id) => dispatch(actions.deleteEvent(id))
+    onDeleteClick: (event, timelineSelected) => dispatch(actions.deleteEvent(event, timelineSelected))
   }
 }
 
