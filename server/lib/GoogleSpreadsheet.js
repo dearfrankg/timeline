@@ -81,8 +81,8 @@ class GoogleSpreadsheet {
         .then(rows => {
           let row
           let rowId = 0
-          while (row = rows[rowId++]) { // eslint-disable-line
-            const event = {id: rowId}
+          while (row = rows[rowId]) { // eslint-disable-line
+            const event = {id: rowId++}
             this.ssFields.forEach((f) => {
               event[f] = row[f]
             })

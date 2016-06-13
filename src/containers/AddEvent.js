@@ -12,7 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddEventClick: () => dispatch(actions.openModal()),
+    onAddEventClick: () => {
+      dispatch(actions.setModalEvent({}))
+      dispatch(actions.openModal())
+    },
     onModalClose: () => {
       dispatch(actions.closeModal())
       dispatch(actions.setModalEvent({}))

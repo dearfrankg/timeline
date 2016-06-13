@@ -85,116 +85,96 @@ export const toggleLiked = (id) => {
   }
 }
 
-// export const addEvent = (fields) => {
-//   return {
-//     type: types.ADD_EVENT,
-//     id: getId(),
-//     ...fields
-//   }
-// }
-//
-// export const deleteEvent = (id) => {
-//   return {
-//     type: types.DELETE_EVENT,
-//     id
-//   }
-// }
-//
-// export const updateEvent = (event) => {
-//   return {
-//     type: types.UPDATE_EVENT,
-//     event
-//   }
-// }
+// CRUD OPS FOR EVENTS
 
-export const add = (event, worksheetName) => {
+export const addEvent = (event, worksheetName) => {
   return (dispatch) => {
-    dispatch(addRequest())
+    dispatch(addEventRequest())
     return GoogleSpreadsheet.addRow(event)
       .then(() => {
-        dispatch(addSuccess(event, worksheetName))
+        dispatch(addEventSuccess(event, worksheetName))
       })
   }
 }
 
-export const addRequest = () => {
+export const addEventRequest = () => {
   return {
-    type: types.ADD_REQUEST
+    type: types.ADD_EVENT_REQUEST
   }
 }
 
-export const addSuccess = (event, worksheetName) => {
+export const addEventSuccess = (event, worksheetName) => {
   return {
-    type: types.ADD_SUCCESS,
+    type: types.ADD_EVENT_SUCCESS,
     event,
     worksheetName
   }
 }
 
-export const fetchRead = () => {
+export const readEvents = () => {
   return (dispatch) => {
-    dispatch(requestRead())
+    dispatch(readEventsRequest())
     return GoogleSpreadsheet.readRows()
       .then((json) => {
-        dispatch(receiveRead(json))
+        dispatch(readEventsSuccess(json))
       })
   }
 }
-export const fetchUpdate = (event) => {
+
+export const readEventsRequest = () => {
+  return {
+    type: types.READ_EVENT_REQUEST
+  }
+}
+
+export const readEventsSuccess = () => {
+  return {
+    type: types.READ_EVENT_SUCCESS
+  }
+}
+
+export const updateEvent = (event, worksheetName) => {
   return (dispatch) => {
-    dispatch(requestUpdate())
+    dispatch(updateEventRequest())
     return GoogleSpreadsheet.updateRow(event)
       .then((json) => {
-        dispatch(receiveUpdate(event))
+        dispatch(updateEventSuccess(event, worksheetName))
       })
   }
 }
-export const fetchDelete = (event) => {
+
+export const updateEventRequest = () => {
+  return {
+    type: types.UPDATE_EVENT_REQUEST
+  }
+}
+
+export const updateEventSuccess = (event, worksheetName) => {
+  return {
+    type: types.UPDATE_EVENT_SUCCESS,
+    event,
+    worksheetName
+  }
+}
+
+export const deleteEvent = (event) => {
   return (dispatch) => {
-    dispatch(requestDelete())
+    dispatch(deleteEventRequest())
     return GoogleSpreadsheet.deleteRow(event)
       .then((json) => {
-        dispatch(receiveDelete(event))
+        dispatch(deleteEventSuccess(event))
       })
   }
 }
 
-
-export const requestRead = () => {
+export const deleteEventRequest = () => {
   return {
-    type: types.REQUEST_READ
+    type: types.DELETE_EVENT_REQUEST
   }
 }
 
-export const requestUpdate = () => {
+export const deleteEventSuccess = () => {
   return {
-    type: types.REQUEST_UPDATE
-  }
-}
-
-export const requestDelete = () => {
-  return {
-    type: types.REQUEST_DELETE
-  }
-}
-
-export const receiveRead = (events) => {
-  return {
-    type: types.RECEIVE_READ,
-    events
-  }
-}
-
-export const receiveUpdate = (event) => {
-  return {
-    type: types.RECEIVE_UPDATE,
-    event
-  }
-}
-
-export const receiveDelete = (event) => {
-  return {
-    type: types.RECEIVE_DELETE,
-    event
+    type: types.DELETE_EVENT_SUCCESS
   }
 }

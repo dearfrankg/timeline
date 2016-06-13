@@ -3,7 +3,6 @@ import {reduxForm} from 'redux-form'
 import { DropModal as Modal } from 'boron'
 import * as actions from 'actions'
 
-
 class EventModal extends Component {
   showModal = () => {
     this.refs.modal.show()
@@ -25,13 +24,14 @@ class EventModal extends Component {
         typeof values.name !== 'undefined' &&
         typeof values.desc !== 'undefined'
       if (valid) {
-        if (activeEvent.id) {
+        if (typeof activeEvent.id !== 'undefined') {
           values.id = activeEvent.id
-          dispatch(actions.updateEvent(values))
+          const updatedRecord = {...activeEvent, ...values}
+          dispatch(actions.updateEvent(updatedRecord, worksheetName))
           dispatch(actions.setModalEvent({}))
           dispatch(actions.closeModal())
         } else {
-          dispatch(actions.add(values, worksheetName))
+          dispatch(actions.addEvent(values, worksheetName))
           resetForm()
         }
         resolve()
@@ -87,7 +87,7 @@ export default reduxForm({
 },
 (state) => {
   return {
-    initialValues: state.sheets.activeEvent
+    initialValues: state.UI.modal.modalEvent
   }
 }
 )(EventModal)

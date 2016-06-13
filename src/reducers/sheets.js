@@ -3,11 +3,11 @@ import {sortByYear} from 'utils'
 
 const event = (state, action) => {
   switch (action.type) {
-    case types.UPDATE_EVENT:
+    case types.UPDATE_EVENT_SUCCESS:
       if (state.id !== action.event.id) {
         return state
       }
-      return Object.assign({}, state, action.event)
+      return action.event
 
     case types.TOGGLE_LIKED:
       if (state.id !== action.id) {
@@ -25,11 +25,14 @@ const event = (state, action) => {
 
 const events = (state = [], action) => {
   switch (action.type) {
-    case types.ADD_SUCCESS:
+    case types.ADD_EVENT_SUCCESS:
       return [
         ...state,
         action.event
       ]
+
+    case types.UPDATE_EVENT_SUCCESS:
+      return state.map((e) => event(e, action))
 
     case types.DELETE_EVENT:
       return state.filter(e => (e.id !== action.id))
@@ -94,9 +97,9 @@ const sheets = (state = initialState, action) => {
         activeEvent: activeEvent
       }
 
-    case types.ADD_SUCCESS:
+    case types.ADD_EVENT_SUCCESS:
       const addSuccessRows = state.worksheets[action.worksheetName]
-      action.event.id = addSuccessRows.length + 1
+      action.event.id = addSuccessRows.length
       action.event.liked = ''
       return {
         ...state,
@@ -105,7 +108,17 @@ const sheets = (state = initialState, action) => {
           [action.worksheetName]: events(addSuccessRows, action)
         }
       }
-      
+
+    case types.UPDATE_EVENT_SUCCESS:
+      const updateEventSuccessRows = state.worksheets[action.worksheetName]
+      return {
+        ...state,
+        worksheets: {
+          ...state.worksheets,
+          [action.worksheetName]: events(updateEventSuccessRows, action)
+        }
+      }
+
     default:
       return state
   }
